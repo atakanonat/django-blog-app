@@ -1,0 +1,67 @@
+{% extends 'layout.html' %} {% block body %}
+
+<div class="row">
+  <div class="col-lg-11 col-md-10 mx-auto text-center">
+    <h3 class="display-6">Dashboard</h3>
+    <hr />
+
+    <p class="lead">Welcome, <small>{{request.user.username}}!</small></p>
+    <a class="btn btn-primary" href="{% url 'article:createArticle' %}"
+      ><i class="fas fa-plus fa-fw"></i> Add Article</a
+    >
+  </div>
+</div>
+
+<div class="row mb-2 mt-4">
+  {% for article in articles %}
+
+  <div class="col-md-11 col-md-10 mx-auto">
+    <div
+      class="
+        row
+        g-0
+        border
+        rounded
+        overflow-hidden
+        flex-md-row
+        mb-4
+        shadow-sm
+        h-md-250
+        position-relative
+      ">
+      <div class="col p-4 d-flex flex-column position-static">
+        <h3 class="mb-0">{{article.title}}</h3>
+        <div class="mb-3 text-muted">{{article.created_date}}</div>
+        <div>
+          <p class="card-text mb-auto">
+            {{article.content|safe|truncatewords:35}}
+          </p>
+        </div>
+        <div class="card-body p-0 mt-1">
+          <a
+            href="{% url 'article:details' article.id %}"
+            style="text-decoration: None"
+            >Continue reading</a
+          >
+          &nbsp;
+          <a
+            href="{% url 'article:editArticle' article.id %}"
+            class="link-info"
+            style="text-decoration: None"
+            >Edit</a
+          >
+          &nbsp;
+          <a
+            href="{% url 'article:deleteArticle' article.id %}"
+            class="link-danger"
+            style="text-decoration: None"
+            >Delete</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock body %}

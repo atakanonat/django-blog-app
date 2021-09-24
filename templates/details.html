@@ -1,0 +1,110 @@
+{% extends 'layout.html' %} {% block body %}
+<div class="section post-section pt-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="text-center">
+          <i class="fas fa-user-circle fa-lg"></i>
+        </div>
+        <span class="d-block text-center"
+          ><a href="#" class="link-secondary" style="text-decoration: None"
+            >{{article.author}}</a
+          ></span
+        >
+        <span
+          class="
+            date
+            d-block
+            text-center
+            small
+            text-uppercase text-black-50
+            mb-5
+          "
+          >{{article.created_date}}</span
+        >
+        <h2 class="heading text-center mb-4 display-6">{{article.title}}</h2>
+        {% if article.article_img %}
+        <img
+          src="{{article.article_img.url}}"
+          alt="Image"
+          class="img-fluid rounded mb-4"
+          data-pagespeed-url-hash="3151298507" />
+        {% endif %}
+        <hr />
+        <p class="mt-4">{{article.content|safe}}</p>
+      </div>
+      {% comment %} Comment Section {% endcomment %}
+      <div class="container py-5">
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-lg-8">
+            <div class="card text-dark" style="border: 0px">
+              <div class="card-body p-4">
+                <h4 class="mb-4 pb-2">Recent comments</h4>
+                {% if request.user.is_authenticated %}
+                <form
+                  method="post"
+                  action="{% url 'article:comment' article.id %}">
+                  {% csrf_token %}
+                  <div
+                    class="
+                      d-flex
+                      flex-row
+                      align-items-center
+                      justify-content-center
+                      mb-4
+                    ">
+                    <i class="fas fa-comment-dots fa-lg me-3 fa-fw"></i>
+                    <div class="form-floating flex-fill mb-0">
+                      <textarea
+                        type="text"
+                        id="comment"
+                        name="comment_content"
+                        class="form-control"
+                        placeholder="Your comment"
+                        style="height: 100px"></textarea>
+                      <label class="form-label" for="search"
+                        >Your comment</label
+                      >
+                      <div class="form-floating d-grid">
+                        <button type="submit" class="btn btn-dark my-1">
+                          Post
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="
+                      d-flex
+                      flex-row
+                      align-items-center
+                      justify-content-center
+                      mb-4
+                    "></div>
+                </form>
+                {% endif %} {% for comment in comments %}
+                <div class="d-flex flex-start">
+                  <img
+                    class="rounded-circle shadow-1-strong me-3"
+                    src="https://genmot.com.tr/assets/images/no-user.png"
+                    alt="avatar"
+                    width="60"
+                    height="60" />
+                  <div>
+                    <h6 class="fw-bold mb-1">{{comment.comment_author}}</h6>
+                    <div class="d-flex align-items-center mb-3">
+                      <p class="mb-0">{{comment.comment_date}}</p>
+                    </div>
+                    <p class="mb-0">{{comment.comment_content}}</p>
+                  </div>
+                </div>
+                <hr class="mt-4 mb-4" />
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock body %}

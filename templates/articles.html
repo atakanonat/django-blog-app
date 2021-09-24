@@ -1,0 +1,74 @@
+{% extends 'layout.html' %} {% block body %}
+<style>
+  a{
+    font-weight: 400;
+    line-height: 1.5;
+    box-sizing: border-box;
+    text-decoration: none;
+    background-color: transparent;
+    color: #212529;
+  }
+  h2{
+    color: #212529;
+    box-sizing: border-box;
+    line-height: 1.2;
+    font-weight: 800;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    font-size: 36px;˝
+  }
+  h3{
+    color: #212529;
+    box-sizing: border-box;
+    line-height: 1.2;
+    font-size: 1.75rem;
+    font-weight: 300;
+    margin: 0 0 10px;
+  }
+  .form-control[id='search']{
+    border:0px;
+  }
+</style>
+{% if articles %}
+<div class="row">
+  <div class="col-lg-11 col-md-10 mx-auto">
+    <h3 class="display-6 text-center">Articles</h3>
+    <hr />
+    <form>
+      {% csrf_token %}
+      <div
+        class="d-flex flex-row align-items-center justify-content-center mb-4">
+        <i class="fas fa-search fa-lg me-3 fa-fw"></i>
+        <div class="form-floating flex-fill mb-0">
+          <input
+            type="text"
+            id="search"
+            name="keyword"
+            class="form-control"
+            placeholder="Article title" />
+          <label class="form-label" for="search">Search Article</label>
+        </div>
+      </div>
+    </form>
+    {% for article in articles %}
+    <article class="post-preview">
+      <a href="{% url 'article:details' article.id %}">
+        <h2 class="post-title">{{article.title}}</h2>
+
+        <h3 class="post-subtitle">
+          <small>{{article.content|safe|truncatewords:18}}</small>
+        </h3>
+      </a>
+      <p class="post-meta">
+        Posted by {{article.author}} on {{article.created_date}} ·
+      </p>
+    </article>
+    <hr />
+
+    {% endfor %}
+  </div>
+</div>
+
+{% else %}
+<div class="alert alert-danger">Articles cannot found.</div>
+{% endif %} {% endblock body %}

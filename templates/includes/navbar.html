@@ -1,0 +1,70 @@
+<style></style>
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <div class="container-fluid">
+    {% comment %} Dynamic URL {% endcomment %}
+    <a class="navbar-brand" href="{% url 'index' %}">My Blog</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarCollapse"
+      aria-controls="navbarCollapse"
+      aria-expanded="false"
+      aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        <!--mr-auto class aligns links to leftside of the navbar-->
+        <li class="nav-item">
+          <a class="nav-link active" href="{% url 'about' %}">About Me </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="{% url 'article:articles' %}"
+            >Articles
+          </a>
+        </li>
+      </ul>
+      <ul class="navbar-nav mr-auto mb-2 mb-md-0">
+        {% if request.user.is_authenticated %}
+
+        <div class="dropdown">
+          <button
+            class="btn btn-light dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton"
+            data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <i class="fas fa-user fa-lg"></i
+            ><span> {{request.user.username}} </span>
+          </button>
+          <ul
+            class="dropdown-menu dropdown-menu-dark dropdown-menu-end"
+            aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="{% url 'article:dashboard' %}"
+              >Dashboard</a
+            >
+            <a class="dropdown-item" href="/account">Account</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{% url 'user:logout' %}"
+              >Logout <span class="sr-only">(current)</span></a
+            >
+          </ul>
+        </div>
+
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link active" href="{% url 'user:login' %}"
+            >Login <span class="sr-only">(current)</span></a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="{% url 'user:register' %}"
+            >Sign In <span class="sr-only">(current)</span></a
+          >
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
