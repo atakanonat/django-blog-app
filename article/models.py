@@ -29,11 +29,11 @@ class Comment(models.Model):
     article = models.ForeignKey(
         Article, on_delete=models.CASCADE, verbose_name='Article', related_name='comments')
     comment_author = models.CharField(
-        max_length=50, verbose_name='Comment Author')
+        max_length=50, verbose_name='commentAuthor')
     comment_content = models.CharField(
-        max_length=200, verbose_name='Comment Content')
+        max_length=200, verbose_name='commentContent')
     comment_date = models.DateTimeField(
-        auto_now_add=True, verbose_name='Comment Date')
+        auto_now_add=True, verbose_name='commentDate')
 
     class Meta:
         ordering = ['-comment_date']

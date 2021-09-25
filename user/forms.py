@@ -1,3 +1,5 @@
+from django.contrib.auth.models import User
+from user.models import Profile
 from django import forms
 
 
@@ -36,3 +38,15 @@ class LoginForm(forms.Form):
     username = forms.CharField(max_length=50, label="Username")
     password = forms.CharField(
         max_length=20, label="Password", widget=forms.PasswordInput)
+
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('first_name', 'username', 'email')
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('account_img', 'userAbout')

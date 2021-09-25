@@ -50,7 +50,6 @@ def createArticle(request):
             article.article_img = request.FILES["article_img"]
 
         article.save()
-        print(article.id)
         messages.success(request, "Article created successfully!")
         return redirect(reverse('article:details', kwargs={'id': article.id}))
 
