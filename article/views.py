@@ -1,3 +1,4 @@
+from user.models import Profile
 from .forms import ArticleForm
 from .models import Article, Comment
 from django.shortcuts import get_object_or_404, redirect, render, reverse
@@ -62,7 +63,14 @@ def details(request, id):
 
     # We can reach comments like this because we assigned related_name value as comments in model.py
     comments = article.comments.all()
-    return render(request, "details.html", {"article": article, "comments": comments})
+    statistics = {
+        'articleCount': Article.objects.filter(author=article.author).count(),
+        'commentCount': Comment.objects.filter(comment_author=article.author).count(),
+        'avgWordCount': sum([len(x.content.split())for x in Article.objects.filter(author=article.author)])
+        // Article.objects.filter(author=article.author).count(),
+    }
+    return render(request, "details.html", {"article": article, "comments": comments,
+                                            "statistics": statistics})
 
 
 @login_required(login_url="user:login")
@@ -98,9 +106,12 @@ def addComment(request, id):
     if request.method == 'POST':
         comment_author = request.user.username
         comment_content = request.POST.get('comment_content')
+        #comment_user_img = request.user.profile.account_img
+        profile = Profile.objects.get(id=request.user.profile.id)
 
         newComment = Comment(comment_author=comment_author,
-                             comment_content=comment_content, article=article)
+                             comment_content=comment_content, article=article,
+                             comment_user_img=profile)  # , comment_user_img=comment_user_img)
 
         newComment.save()
 

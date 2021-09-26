@@ -1,3 +1,4 @@
+from user.models import Profile
 from django.db import models
 from ckeditor.fields import RichTextField
 # Create your models here.
@@ -11,7 +12,7 @@ class Article(models.Model):
     # on_delete attribute, deletes articles when user account is deleted.
     author = models.ForeignKey(
         "auth.User", on_delete=models.CASCADE, verbose_name="Author")
-    title = models.CharField(max_length=50, verbose_name="Title")
+    title = models.CharField(max_length=100, verbose_name="Title")
     content = RichTextField()
     created_date = models.DateTimeField(
         auto_now_add=True, verbose_name="Created Date")
@@ -34,6 +35,8 @@ class Comment(models.Model):
         max_length=200, verbose_name='commentContent')
     comment_date = models.DateTimeField(
         auto_now_add=True, verbose_name='commentDate')
+    comment_user_img = models.ForeignKey(
+        Profile, on_delete=models.CASCADE, verbose_name="commentUserImg")
 
     class Meta:
         ordering = ['-comment_date']
