@@ -1,4 +1,4 @@
 .DS_Store
 *.sqlite3
 media/**
-!media/user-01.png
+!media/userImg/user-01.png
