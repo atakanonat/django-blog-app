@@ -68,7 +68,7 @@
                       flex-row
                       align-items-center
                       justify-content-center
-                      mb-4
+                      mb-2
                     ">
                     <i class="fas fa-comment-dots fa-lg me-3 fa-fw"></i>
                     <div class="form-floating flex-fill mb-0">
@@ -98,7 +98,7 @@
                       mb-4
                     "></div>
                 </form>
-                {% endif %} {% for comment in comments %}
+                {% endif %} {% if comments %} {% for comment in comments %}
                 <div class="d-flex flex-start">
                   <img
                     class="rounded-circle shadow-1-strong me-3"
@@ -118,7 +118,11 @@
                   </div>
                 </div>
                 <hr class="mt-4 mb-4" />
-                {% endfor %}
+                {% endfor %} {% else %}
+                <div class="alert alert-light text-center" role="alert">
+                  No comments yet.
+                </div>
+                {% endif %}
               </div>
             </div>
           </div>

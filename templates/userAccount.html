@@ -57,16 +57,17 @@
                         <small>Last login {{user.last_login}}</small>
                       </div>
                       <div class="mt-2">
-                        <button class="btn btn-primary" type="button">
-                          <div class="text-start">
-                            <i class="fa fa-fw fa-camera mb-2"></i> Change
-                            Photo:
-                          </div>
-                          <input type="file" name="account_img" />
-                        </button>
+                        <div class="text-start">
+                          <i class="fa fa-fw fa-camera mb-2"></i> Change Photo:
+                        </div>
+                        <input
+                          class="form-control"
+                          name="account_img"
+                          type="file"
+                          id="formFile" />
                       </div>
                     </div>
-                    <div class="text-center text-sm-right«">
+                    <div class="text-center text-sm-right">
                       <div class="text-muted">
                         <small>Joined {{user.date_joined}}</small>
                       </div>
