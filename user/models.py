@@ -10,7 +10,7 @@ from PIL import Image
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     account_img = models.ImageField(unique=True, upload_to='userImg/',
-                                    default="/userImg/user-01.png", verbose_name="accountImg")
+                                    default="userImg/user-01.png", verbose_name="accountImg")
     userAbout = models.CharField(
         blank=True, max_length=200, verbose_name="userAbout")
 
